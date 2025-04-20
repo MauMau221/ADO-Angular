@@ -1,5 +1,36 @@
 # MeuProjetoAngular
 
+## Pré-requisitos
+
+- Node.js v22.13.1
+- npm (vem junto com o Node.js)
+- Angular CLI
+
+## Instalação
+
+1. Instale o Node.js v22.13.1 (ou superior) em sua máquina:
+   - [Download Node.js](https://nodejs.org/)
+
+2. Instale o Angular CLI globalmente:
+   ```bash
+   npm install -g @angular/cli
+   ```
+
+3. Clone este repositório:
+   ```bash
+   git clone [URL_DO_SEU_REPOSITÓRIO]
+   ```
+
+4. Navegue até a pasta do projeto:
+   ```bash
+   cd meu-projeto-angular
+   ```
+
+5. Instale as dependências do projeto:
+   ```bash
+   npm install
+   ```
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.6.
 
 ## Development server
