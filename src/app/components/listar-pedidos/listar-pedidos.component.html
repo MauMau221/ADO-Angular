@@ -1,0 +1,18 @@
+<div class="container">
+    <h1>Listar Pedidos</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Codigo do Filme</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pedido of pedidos">
+                <td>{{ pedido.codigo }}</td>
+                <td>{{ pedido.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
