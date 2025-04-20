@@ -1,4 +1,14 @@
-# MeuProjetoAngular
+# Este trabalho requer um arquivo PHP para recebimento e processamento dos dados que sua aplicação Angular enviará. Após o PHP realizar a resposta o Angular deverá exibir esta resposta na tela. 
+
+Itens para entrega:
+
+1) Pasta SRC zipada do Angular do projeto que estamos desenvolvendo em aula com o seu formulário e envio de dados;
+
+2) Arquivo PHP da API
+
+3) Endereço da API PHP
+
+4) Print da tela da sua aplicação funcionando.
 
 ## Pré-requisitos
 

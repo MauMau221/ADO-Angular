@@ -1,15 +1,15 @@
-    <p>Fazerpedido works!</p>
-
-    <div class="container">
-        <h1>Fazer pedido</h1>
-        <form>
-            <div class="form-group">
-                <label for="filme">Filme</label>
-                <input type="text" class="form-control" id="filme" placeholder="Nome do filme">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Email">
-                <button type="submit" class="btn btn-dark">Fazer pedido</button>
-            </div>
-        </form>
-    </div>
-
+<div class="container mt-2">
+    <h1>Fazer pedido</h1>
+    <form (ngSubmit)="enviarDados()">
+        <div class="form-group">
+            <label for="codigo">Codigo do Filme</label>
+            <input type="number" id="codigo" [(ngModel)]="codigo" name="codigo" class="form-control" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" [(ngModel)]="email" name="email" class="form-control" required>
+            <button type="submit" class="btn btn-dark mt-1">Fazer pedido</button>
+        </div>
+    </form>
+    <div *ngIf="resposta">
+        <strong>Resposta:</strong> {{ resposta }}
+      </div>
+</div>
