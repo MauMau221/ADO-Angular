@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -14,14 +14,35 @@ export class PedidoComponent {
   codigo: number = 0;
   email: string = '';
   resposta: string = '';
-
+  apiUrl: string = 'http://localhost/php/index.php';
+  
   constructor(private http: HttpClient) { }
 
   enviarDados() {
-    const url = `http://localhost:8080/php/index.php?codigo=${encodeURIComponent(this.codigo)}&email=${this.email}`;
-    this.http.get(url, { responseType: 'text' }).subscribe({
-      next: (res) => this.resposta = res,
-      error: () => this.resposta = 'Erro ao enviar os dados.'
+    // Use POST method with JSON
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    
+    const data = {
+      codigo: this.codigo,
+      email: this.email
+    };
+    
+    this.http.post(this.apiUrl, data, { headers }).subscribe({
+      next: (res: any) => {
+        if (res.success) {
+          this.resposta = res.success;
+        } else if (res.error) {
+          this.resposta = res.error;
+        } else {
+          this.resposta = JSON.stringify(res);
+        }
+      },
+      error: (err) => {
+        this.resposta = 'Erro ao enviar os dados: ' + err.message;
+        console.error('Erro:', err);
+      }
     });
   }
 }

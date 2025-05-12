@@ -1,17 +1,59 @@
-<div class="container mt-2">
+<div class="container mt-4 mb-5 content-section">
     <h1>Listar Filmes</h1>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let filme of filmes">
-                <td>{{filme.id}}</td>
-                <td>{{filme.movie_title}}</td>
-            </tr>
-        </tbody>
-    </table>
+    
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <button class="btn btn-outline-primary" (click)="recarregarDados()">
+                <i class="bi bi-arrow-clockwise"></i> Atualizar
+            </button>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Buscar filmes..." 
+                       [(ngModel)]="termoBusca" (keyup)="buscarFilmes()">
+                <button class="btn btn-outline-secondary" type="button" (click)="limparBusca()" 
+                        *ngIf="termoBusca">Limpar</button>
+                <button class="btn btn-outline-primary" type="button" (click)="buscarFilmes()">Buscar</button>
+            </div>
+        </div>
+    </div>
+    
+    <div *ngIf="loading" class="alert alert-info">
+        Carregando filmes...
+    </div>
+    
+    <div *ngIf="erro" class="alert alert-danger">
+        {{ erro }}
+    </div>
+    
+    <div *ngIf="!loading && !erro">
+        <div *ngIf="filmesFiltrados.length === 0" class="alert alert-warning">
+            Nenhum filme encontrado.
+        </div>
+        
+        <div *ngIf="termoBusca && filmesFiltrados.length > 0" class="alert alert-info mb-3">
+            Exibindo {{ filmesFiltrados.length }} resultado(s) para "{{ termoBusca }}"
+        </div>
+        
+        <div *ngIf="filmesFiltrados.length > 0" class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Data Aluguel</th>
+                        <th>Data Devolução</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let filme of filmesFiltrados">
+                        <td>{{ filme.film_id || filme['id'] }}</td>
+                        <td>{{ filme.title || filme['movie_title'] }}</td>
+                        <td>{{ filme.rental_date }}</td>
+                        <td>{{ filme.return_date }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

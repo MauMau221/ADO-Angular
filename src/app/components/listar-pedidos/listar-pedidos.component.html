@@ -1,18 +1,93 @@
-<div class="container mt-2">
+<div class="container mt-4 mb-5 content-section">
     <h1>Listar Pedidos</h1>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Codigo do Filme</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let pedido of pedidos">
-                <td>{{ pedido.codigo }}</td>
-                <td>{{ pedido.email }}</td>
-            </tr>
-        </tbody>
-    </table>
+    
+    <div class="mb-3">
+        <button class="btn btn-outline-primary" (click)="recarregarDados()">
+            <i class="bi bi-arrow-clockwise"></i> Atualizar
+        </button>
+    </div>
+    
+    <div *ngIf="mensagem" class="alert alert-info mt-2 mb-2">
+        {{ mensagem }}
+    </div>
+    
+    <div *ngIf="loading" class="alert alert-info">
+        Carregando pedidos...
+    </div>
+    
+    <div *ngIf="erro" class="alert alert-danger">
+        {{ erro }}
+    </div>
+    
+    <!-- Área de visualização de detalhes -->
+    <div *ngIf="visualizandoDetalhes && pedidoDetalhes" class="card mb-3">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5>Detalhes do Pedido #{{ pedidoDetalhes.id }}</h5>
+            <button class="btn btn-sm btn-outline-secondary" (click)="fecharDetalhes()">Fechar</button>
+        </div>
+        <div class="card-body">
+            <p><strong>Código do Filme:</strong> {{ pedidoDetalhes.codigo }}</p>
+            <p><strong>Email:</strong> {{ pedidoDetalhes.email }}</p>
+            <p><strong>Data do Pedido:</strong> {{ pedidoDetalhes.data_pedido }}</p>
+        </div>
+    </div>
+    
+    <!-- Área de edição de pedido -->
+    <div *ngIf="pedidoEmEdicao" class="card mb-3">
+        <div class="card-header">
+            <h5>Editar Pedido #{{ pedidoEmEdicao.id }}</h5>
+        </div>
+        <div class="card-body">
+            <form (ngSubmit)="salvarEdicao()">
+                <div class="mb-3">
+                    <label for="codigo" class="form-label">Código do Filme</label>
+                    <input type="text" class="form-control" id="codigo" [(ngModel)]="editandoCodigo" name="codigo" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" [(ngModel)]="editandoEmail" name="email" required>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-secondary" (click)="cancelarEdicao()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div *ngIf="!loading && !erro && !pedidoEmEdicao && !visualizandoDetalhes">
+        <div *ngIf="pedidos.length === 0" class="alert alert-warning">
+            Nenhum pedido encontrado.
+        </div>
+        
+        <div *ngIf="pedidos.length > 0" class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Código do Filme</th>
+                        <th>Email</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pedido of pedidos">
+                        <td>{{ pedido.id }}</td>
+                        <td>{{ pedido.codigo }}</td>
+                        <td>{{ pedido.email }}</td>
+                        <td>{{ pedido.data_pedido }}</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <button *ngIf="pedido.id" class="btn btn-outline-primary" (click)="verDetalhes(pedido.id!)">Detalhes</button>
+                                <button class="btn btn-outline-secondary" (click)="iniciarEdicao(pedido)">Editar</button>
+                                <button *ngIf="pedido.id" class="btn btn-outline-danger" (click)="excluirPedido(pedido.id!)">Excluir</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 

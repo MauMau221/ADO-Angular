@@ -1,1 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Estilos para tabelas responsivas */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Espaçamento para seções de conteúdo */
+.content-section {
+  margin-bottom: 2rem;
+}
+
+/* Adiciona margens adequadas para containers em telas pequenas */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .table-responsive {
+    margin-bottom: 1rem;
+  }
+  
+  .footer {
+    padding: 1rem 0;
+  }
+}

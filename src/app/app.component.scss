@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding-bottom: 30px; /* Espaço extra na parte inferior */
+  margin-bottom: 20px; /* Margem adicional para separar do footer */
+}
